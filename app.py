@@ -115,7 +115,7 @@ if uploaded_file is not None:
     st.subheader(" Original Data Preview")
     st.dataframe(df.head())
 
-    st.sidebar.title("🛠 Cleaning Options")
+    st.sidebar.title(" Cleaning Options")
     
     if st.sidebar.checkbox("Remove Duplicates"):
         df = remove_duplicates(df)
@@ -130,29 +130,52 @@ if uploaded_file is not None:
     if st.sidebar.checkbox("Scale/Normalize Numeric Columns"):
         df = scale_data(df)
 
-    if st.sidebar.checkbox("Fix Inconsistencies"):
-        df = fix_inconsistencies(df)
+    # if st.sidebar.checkbox("Fix Inconsistencies"):
+    #     df = fix_inconsistencies(df)
 
     if st.sidebar.checkbox("Detect & Remove Outliers"):
         df = detect_outliers(df)
 
     if st.sidebar.checkbox("Remove Irrelevant Features"):
-        df = remove_irrelevant_features(df)
+    st.subheader("🗑 Remove Irrelevant Columns")
 
-    if st.sidebar.checkbox("Feature Engineering (row_sum)"):
-        df = feature_engineering(df)
+    columns_to_remove = st.multiselect("Select columns to remove", df.columns)
+
+    if st.button("Remove Selected Columns"):
+        if columns_to_remove:
+            df = df.drop(columns=columns_to_remove)
+            st.success(f" Removed columns: {', '.join(columns_to_remove)}")
+        else:
+            st.warning(" Please select at least one column to remove.")
+
+    # if st.sidebar.checkbox("Feature Engineering (row_sum)"):
+    #     df = feature_engineering(df)
 
     if st.sidebar.checkbox("Text Cleaning"):
-        df = clean_text_columns(df)
+    st.subheader(" Clean Text Columns")
 
-    if st.sidebar.checkbox("Date Parsing"):
-        df = parse_dates(df)
+    # Filter only object (text) type columns for dropdown
+    text_columns = df.select_dtypes(include='object').columns.tolist()
 
-    if st.sidebar.checkbox("Detect Anomalies"):
-        df = detect_anomalies(df)
+    selected_columns = st.multiselect("Select text columns to clean", text_columns)
+
+    if st.button("Clean Selected Text Columns"):
+        if selected_columns:
+            for col in selected_columns:
+                df[col] = df[col].str.replace(f"[{string.punctuation}]", "", regex=True)
+                df[col] = df[col].str.lower().str.strip()
+            st.success(f" Cleaned columns: {', '.join(selected_columns)}")
+        else:
+            st.warning("⚠ Please select at least one text column.")
+
+    # if st.sidebar.checkbox("Date Parsing"):
+    #     df = parse_dates(df)
+
+    # if st.sidebar.checkbox("Detect Anomalies"):
+    #     df = detect_anomalies(df)
 
     if st.sidebar.checkbox("Rename Columns"):
-        st.subheader("🔤 Rename Columns")
+        st.subheader(" Rename Columns")
         
         old_column = st.selectbox("Select column to rename", df.columns)
         new_column = st.text_input("Enter new column name")
@@ -160,12 +183,12 @@ if uploaded_file is not None:
         if st.button("Rename Column"):
             if new_column:
                 df = df.rename(columns={old_column: new_column})
-                st.success(f"✅ Column renamed from '{old_column}' to '{new_column}'")
+                st.success(f" Column renamed from '{old_column}' to '{new_column}'")
             else:
-                st.warning("⚠️ Please enter a new column name.")
+                st.warning("⚠ Please enter a new column name.")
 
-    if st.sidebar.checkbox("Reset Index"):
-        df = reset_index(df)
+    # if st.sidebar.checkbox("Reset Index"):
+    #     df = reset_index(df)
 
     if st.sidebar.checkbox("Set Index"):
         column = st.selectbox("Select Column to Set as Index", df.columns)
