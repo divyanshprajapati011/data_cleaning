@@ -140,12 +140,7 @@ if uploaded_file is not None:
         st.subheader("🗑 Remove Irrelevant Columns")
         columns_to_remove = st.multiselect("Select columns to remove", df.columns)
 
-    if st.button("Remove Selected Columns"):
-        if columns_to_remove:
-            df = df.drop(columns=columns_to_remove)
-            st.success(f" Removed columns: {', '.join(columns_to_remove)}")
-        else:
-            st.warning(" Please select at least one column to remove.")
+
 
     # if st.sidebar.checkbox("Feature Engineering (row_sum)"):
     #     df = feature_engineering(df)
