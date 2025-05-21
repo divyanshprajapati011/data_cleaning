@@ -92,8 +92,8 @@ def detect_anomalies(df):
     df['anomaly'] = preds
     return df[df['anomaly'] == 1].drop(columns='anomaly')
 
-def rename_columns(df, rename_dict):
-    return df.rename(columns=rename_dict)
+def rename_single_column(df, old_col, new_col):
+    return df.rename(columns={old_col: new_col})
 
 def reset_index(df):
     return df.reset_index(drop=True)
@@ -152,9 +152,17 @@ if uploaded_file is not None:
         df = detect_anomalies(df)
 
     if st.sidebar.checkbox("Rename Columns"):
-        rename_dict = st.text_area("Enter column rename dict (e.g. {'old':'new'})")
-        if rename_dict:
-            df = rename_columns(df, eval(rename_dict))
+        st.subheader("🔤 Rename Columns")
+        
+        old_column = st.selectbox("Select column to rename", df.columns)
+        new_column = st.text_input("Enter new column name")
+
+        if st.button("Rename Column"):
+            if new_column:
+                df = df.rename(columns={old_column: new_column})
+                st.success(f"✅ Column renamed from '{old_column}' to '{new_column}'")
+            else:
+                st.warning("⚠️ Please enter a new column name.")
 
     if st.sidebar.checkbox("Reset Index"):
         df = reset_index(df)
