@@ -107,7 +107,7 @@ def set_index(df, column):
 st.set_page_config(page_title="DataCleaner Pro", layout="wide")
 
 st.title("Data Cleaner Web App ")
- st.markdown("<small>Build By Deepak Prajapati</small>", unsafe_allow_html=True)
+st.markdown("<small>Build By Deepak Prajapati</small>", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader(" Upload your CSV file", type=["csv"])
 
