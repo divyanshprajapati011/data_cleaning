@@ -137,9 +137,8 @@ if uploaded_file is not None:
         df = detect_outliers(df)
 
     if st.sidebar.checkbox("Remove Irrelevant Features"):
-    st.subheader("🗑 Remove Irrelevant Columns")
-
-    columns_to_remove = st.multiselect("Select columns to remove", df.columns)
+        st.subheader("🗑 Remove Irrelevant Columns")
+        columns_to_remove = st.multiselect("Select columns to remove", df.columns)
 
     if st.button("Remove Selected Columns"):
         if columns_to_remove:
@@ -152,21 +151,21 @@ if uploaded_file is not None:
     #     df = feature_engineering(df)
 
     if st.sidebar.checkbox("Text Cleaning"):
-    st.subheader(" Clean Text Columns")
+        st.subheader(" Clean Text Columns")
 
-    # Filter only object (text) type columns for dropdown
-    text_columns = df.select_dtypes(include='object').columns.tolist()
+        # Filter only object (text) type columns for dropdown
+        text_columns = df.select_dtypes(include='object').columns.tolist()
+    
+        selected_columns = st.multiselect("Select text columns to clean", text_columns)
 
-    selected_columns = st.multiselect("Select text columns to clean", text_columns)
-
-    if st.button("Clean Selected Text Columns"):
-        if selected_columns:
-            for col in selected_columns:
-                df[col] = df[col].str.replace(f"[{string.punctuation}]", "", regex=True)
-                df[col] = df[col].str.lower().str.strip()
-            st.success(f" Cleaned columns: {', '.join(selected_columns)}")
-        else:
-            st.warning("⚠ Please select at least one text column.")
+        if st.button("Clean Selected Text Columns"):
+            if selected_columns:
+                for col in selected_columns:
+                    df[col] = df[col].str.replace(f"[{string.punctuation}]", "", regex=True)
+                    df[col] = df[col].str.lower().str.strip()
+                st.success(f" Cleaned columns: {', '.join(selected_columns)}")
+            else:
+                st.warning("⚠ Please select at least one text column.")
 
     # if st.sidebar.checkbox("Date Parsing"):
     #     df = parse_dates(df)
