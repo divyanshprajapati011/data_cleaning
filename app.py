@@ -117,57 +117,57 @@ if uploaded_file is not None:
 
     st.sidebar.title("🛠 Cleaning Options")
     
-    if st.sidebar.checkbox("Remove Duplicates"):
-        df = remove_duplicates(df)
-    
-    if st.sidebar.checkbox("Fill Null Values"):
-        method = st.sidebar.selectbox("Method", ["mean", "median"])
-        df = fill_null_values(df, method)
+if st.sidebar.checkbox("Remove Duplicates"):
+    df = remove_duplicates(df)
 
-    if st.sidebar.checkbox("Encode Categorical Columns"):
-        df = encode_data(df)
+if st.sidebar.checkbox("Fill Null Values"):
+    method = st.sidebar.selectbox("Method", ["mean", "median"])
+    df = fill_null_values(df, method)
 
-    if st.sidebar.checkbox("Scale/Normalize Numeric Columns"):
-        df = scale_data(df)
-    
-    if st.sidebar.checkbox("Fix Inconsistencies"):
-        df = fix_inconsistencies(df)
+if st.sidebar.checkbox("Encode Categorical Columns"):
+    df = encode_data(df)
 
-    if st.sidebar.checkbox("Detect & Remove Outliers"):
-        df = detect_outliers(df)
+if st.sidebar.checkbox("Scale/Normalize Numeric Columns"):
+    df = scale_data(df)
 
-    if st.sidebar.checkbox("Remove Irrelevant Features"):
-        df = remove_irrelevant_features(df)
+if st.sidebar.checkbox("Fix Inconsistencies"):
+    df = fix_inconsistencies(df)
 
-    if st.sidebar.checkbox("Feature Engineering (row_sum)"):
-        df = feature_engineering(df)
+if st.sidebar.checkbox("Detect & Remove Outliers"):
+    df = detect_outliers(df)
 
-    if st.sidebar.checkbox("Text Cleaning"):
-        df = clean_text_columns(df)
+if st.sidebar.checkbox("Remove Irrelevant Features"):
+    df = remove_irrelevant_features(df)
 
-    if st.sidebar.checkbox("Date Parsing"):
-        df = parse_dates(df)
+if st.sidebar.checkbox("Feature Engineering (row_sum)"):
+    df = feature_engineering(df)
 
-    if st.sidebar.checkbox("Detect Anomalies"):
-        df = detect_anomalies(df)
+if st.sidebar.checkbox("Text Cleaning"):
+    df = clean_text_columns(df)
 
-    if st.sidebar.checkbox("Rename Columns"):
-        rename_dict = st.text_area("Enter column rename dict (e.g. {'old':'new'})")
-        if rename_dict:
-            df = rename_columns(df, eval(rename_dict))
+if st.sidebar.checkbox("Date Parsing"):
+    df = parse_dates(df)
 
-    if st.sidebar.checkbox("Reset Index"):
-        df = reset_index(df)
+if st.sidebar.checkbox("Detect Anomalies"):
+    df = detect_anomalies(df)
 
-    if st.sidebar.checkbox("Set Index"):
-        column = st.selectbox("Select Column to Set as Index", df.columns)
-        df = set_index(df, column)
+if st.sidebar.checkbox("Rename Columns"):
+    rename_dict = st.text_area("Enter column rename dict (e.g. {'old':'new'})")
+    if rename_dict:
+        df = rename_columns(df, eval(rename_dict))
 
-        st.subheader(" Cleaned Data Preview")
-        st.dataframe(df.head())
+if st.sidebar.checkbox("Reset Index"):
+    df = reset_index(df)
 
-        st.write(" Shape:", df.shape)
+if st.sidebar.checkbox("Set Index"):
+    column = st.selectbox("Select Column to Set as Index", df.columns)
+    df = set_index(df, column)
 
-    # Download link
-    csv = df.to_csv(index=False).encode('utf-8')
-    st.download_button(" Download Cleaned CSV", data=csv, file_name="cleaned_data.csv", mime='text/csv')
+    st.subheader(" Cleaned Data Preview")
+    st.dataframe(df.head())
+
+    st.write(" Shape:", df.shape)
+
+# Download link
+csv = df.to_csv(index=False).encode('utf-8')
+st.download_button(" Download Cleaned CSV", data=csv, file_name="cleaned_data.csv", mime='text/csv')
