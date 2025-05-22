@@ -23,7 +23,6 @@ This app is useful for:
 | 🔠 Encoding            | Label Encoding            | Encode categorical columns using `LabelEncoder`                                   |
 | 📊 Scaling             | Standardization           | Scale numeric features using `StandardScaler`                                     |
 | 🧪 Outliers            | Outlier Removal           | Remove rows with outliers using the IQR method                                    |
-| 🧹 Text Cleaning       | Clean Text Columns        | Remove punctuation, lowercase text, strip whitespace (column selection supported) |
 | 🔍 Feature Pruning     | Remove Irrelevant Columns | Select columns manually to remove                                                 |
 | 🧬 Feature Engineering | Row Sum Feature           | Adds a new feature by summing numeric columns per row                             |
 | 🧾 Rename Columns      | Manual Rename             | Select a column to rename and provide new name input                              |
