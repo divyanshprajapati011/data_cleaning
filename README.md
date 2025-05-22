@@ -24,12 +24,8 @@ This app is useful for:
 | 📊 Scaling             | Standardization           | Scale numeric features using `StandardScaler`                                     |
 | 🧪 Outliers            | Outlier Removal           | Remove rows with outliers using the IQR method                                    |
 | 🧹 Text Cleaning       | Clean Text Columns        | Remove punctuation, lowercase text, strip whitespace (column selection supported) |
-| 🧱 Inconsistencies     | Fix Inconsistencies       | Standardize categorical text by stripping and lowercasing                         |
 | 🔍 Feature Pruning     | Remove Irrelevant Columns | Select columns manually to remove                                                 |
 | 🧬 Feature Engineering | Row Sum Feature           | Adds a new feature by summing numeric columns per row                             |
-| 📅 Date Parsing        | Convert to DateTime       | Parse string columns to datetime format                                           |
-| ⚖️ Class Balance       | SMOTE                     | Handle imbalanced target class using SMOTE oversampling                           |
-| 🚨 Anomalies           | Detect & Remove           | Detect anomalies using `IsolationForest`                                          |
 | 🧾 Rename Columns      | Manual Rename             | Select a column to rename and provide new name input                              |
 | 🧭 Indexing            | Set/Reset Index           | Set or reset index based on selected column                                       |
 
